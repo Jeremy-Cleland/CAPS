@@ -1,0 +1,23 @@
+{
+  "name": "caps",
+  "description": "",
+  "version": "1.0.0",
+  "main": "hub.js",
+  "devDependencies": {},
+    "scripts": {
+    "start": "node hub.js",
+    "test-watch": "NODE_ENV=test jest --verbose --coverage --watchAll",
+    "test": "NODE_ENV=test jest  --verbose --coverage"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chance": "^1.1.10",
+    "eslint": "^8.35.0",
+    "jest": "^29.4.3"
+  }
+}
