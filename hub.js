@@ -6,36 +6,19 @@ require('./driver');
 var Chance = require('chance');
 var chance = new Chance();
 
-eventPool.on('pickup', (payload) => {
+eventPool.on('pickup', (payload) => logger('pickup', payload));
+
+eventPool.on('in-transit', (payload) => logger('in-transit', payload));
+
+eventPool.on('delivered', (payload) => logger('delivered', payload));
+
+function logger(event, payload) {
   console.log({
-    event: 'pickup',
+    event,
     time: new Date().toISOString(),
-    payload: payload,
+    payload,
   });
-});
-
-eventPool.on('in-transit', (payload) => {
-  setTimeout(() => {
-    console.log({
-      event: 'in-transit',
-      time: new Date().toISOString(),
-      payload: payload,
-    });
-    eventPool.emit('delivered', payload);
-  }, 2000);
-});
-
-eventPool.on('delivered', (payload) => {
-  setTimeout(() => {
-    console.log(`DRIVER: delivered ${payload.orderID}`);
-    console.log(`VENDOR: Thank you for delivering ${payload.orderID}`);
-    console.log({
-      event: 'delivered',
-      time: new Date().toISOString(),
-      payload: payload,
-    });
-  }, 2000);
-});
+}
 
 const start = () => {
   setInterval(() => {
