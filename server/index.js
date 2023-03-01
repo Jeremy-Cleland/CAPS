@@ -9,7 +9,7 @@ const caps = server.of('/caps');
 const logger = (event, payload) => {
   console.log({
     event,
-    time: new Date().toISOString,
+    time: new Date().toISOString(),
     payload,
   });
 };
