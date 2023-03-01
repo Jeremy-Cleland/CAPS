@@ -6,7 +6,7 @@
 
 ### Problem Domain
 
-Create a caps system
+Create a caps system with socket.io
 
 ### Links and Resources
 
@@ -24,4 +24,4 @@ no env requirements
 
 #### UML
 
-![Lab 11](./assets/lab-11-uml.png)
+![Lab 12](./assets/lab-12-uml.png)
