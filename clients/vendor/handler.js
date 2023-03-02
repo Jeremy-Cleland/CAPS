@@ -6,19 +6,22 @@ let chance = new Chance();
 const orderCreation = (socket, payload = null) => {
   if (!payload) {
     payload = {
-      store: store,
+      store: '1-800-flowers',
       orderID: chance.guid(),
       customer: chance.name(),
       address: chance.address(),
     };
   }
-  socket.emit('JOIN', payload.store);
+
   console.log('VENDOR: Order ready for pickup.');
+  socket.emit('JOIN', payload.store);
   socket.emit('pickup', payload);
 };
 
 const packageDelivered = (payload) => {
-  console.log(`VENDOR: Thank you for delivering ${payload.orderID}`);
+  console.log(
+    `VENDOR: Thank you for delivering ${payload.orderID} to ${payload.customer}}`
+  );
 };
 
 module.exports = { orderCreation, packageDelivered };

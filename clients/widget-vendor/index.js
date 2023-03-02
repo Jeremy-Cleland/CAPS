@@ -1,17 +1,19 @@
 'use strict';
 
-const { io } = require('socket.io-client');
-const { packageDelivered, generateOrder } = require('./handler');
+const { orderCreation, packageDelivered } = require('./handler');
+let Chance = require('chance');
+let chance = new Chance();
 
+const { io } = require('socket.io-client');
 const socket = io.connect('http://localhost:3005/caps');
 
-socket.emit('getAll', { store: 'acme-widgets' });
-
-setInterval(() => {
-  generateOrder(socket);
-}, 8000);
+socket.emit('get-all', { queueId: 'Acme Widgets' });
 
 socket.on('delivered', (payload) => {
   packageDelivered(payload);
   socket.emit('received', payload);
 });
+
+setInterval(() => {
+  orderCreation(socket);
+}, 5000);
