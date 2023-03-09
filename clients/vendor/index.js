@@ -9,14 +9,11 @@ const socket = io.connect('http://localhost:3005/caps');
 
 socket.emit('getAll', { store: '1-800-flowers' });
 
-socket.emit('join', store);
+socket.on('delivered', (payload) => {
+  packageDelivered(payload);
+  socket.emit('received', payload);
+});
 
 setInterval(() => {
   orderCreation(socket);
 }, 5000);
-
-socket.on('delivered', (payload) => {
-  packageDelivered(payload);
-
-  socket.emit('received', payload);
-});

@@ -1,26 +1,27 @@
-'use strict';
+`use strict`;
 
-var Chance = require('chance');
-var chance = new Chance();
+let Chance = require('chance');
+let chance = new Chance();
 
-const generateOrder = (socket, payload = null) => {
+const orderCreation = (socket, payload = null) => {
   if (!payload) {
     payload = {
-      store: 'acme-widgets',
+      store: 'Acme Widgets',
       orderID: chance.guid(),
       customer: chance.name(),
       address: chance.address(),
     };
   }
 
-  socket.emit('JOIN', payload.store);
   console.log('VENDOR: Order ready for pickup.');
+  socket.emit('JOIN', payload.store);
   socket.emit('pickup', payload);
 };
 
 const packageDelivered = (payload) => {
-  console.log(`VENDOR: Thank you for delivering ${payload.orderID}`);
-  // process.exit(0);
+  console.log(
+    `VENDOR: Thank you for delivering ${payload.orderID} to ${payload.customer}}`
+  );
 };
 
-module.exports = { generateOrder, packageDelivered };
+module.exports = { orderCreation, packageDelivered };
